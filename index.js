@@ -22,7 +22,6 @@ app.get('/api/search', async (req, res) => {
         const res1 = await axios.get(`https://saavn.dev/api/search/songs?query=${encodeURIComponent(query)}`);
         
         if (res1.data && res1.data.success && res1.data.data.results.length > 0) {
-            // Frontend ke liye data ekdum simple aur clean kar diya hai
             const songs = res1.data.data.results.map(song => ({
                 title: song.name,
                 artist: song.artists.primary[0]?.name || "Unknown Artist",
@@ -36,8 +35,6 @@ app.get('/api/search', async (req, res) => {
         }
 
     } catch (error) {
-        console.log("Primary fail hua, Engine 2 (Fallback) chal raha hai...");
-        
         try {
             // ENGINE 2: Fallback Global API (Agar pehla fail ho jaye)
             const res2 = await axios.get(`https://itunes.apple.com/search?term=${encodeURIComponent(query)}&entity=song&limit=10`);
@@ -60,7 +57,5 @@ app.get('/api/search', async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Nova Music Server running on port ${PORT}`);
-});
+// VERCEL SERVERLESS EXPORT (Ye line lagana bohot zaroori tha)
+module.exports = app;
