@@ -1,7 +1,7 @@
 {
   "name": "nova-universal-music-api",
   "version": "1.0.0",
-  "description": "Personal Backend API for Music App",
+  "description": "Global Music API with Fallback Engine",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
